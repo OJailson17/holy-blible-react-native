@@ -18,7 +18,7 @@ const list = [
 ];
 
 export const Select = () => {
-  const [selectedValue, setSelectedValue] = useState("Gênesis");
+  const [selectedValue, setSelectedValue] = useState("Salmos");
 
   return (
     <View style={[styles.selectContainer]}>
@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "#3695c9",
+    // position: "relative",
   },
 });
