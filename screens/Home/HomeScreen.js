@@ -6,9 +6,9 @@ import {
   FlatList,
   Image,
   Linking,
-  TouchableOpacity,
   TouchableHighlight,
   Platform,
+  Dimensions,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ import { useFonts } from "@expo-google-fonts/inter";
 export function HomeScreen({ navigation }) {
   let [fontsLoaded] = useFonts({
     Prata: require("../../fonts/Prata-Regular.ttf"),
+    OpenSans: require("../../fonts/OpenSans-Regular.ttf"),
   });
 
   const iconStyle = {
@@ -127,7 +128,14 @@ export function HomeScreen({ navigation }) {
             >
               <>
                 {item.icon()}
-                <Text style={{ color: "white", marginTop: 5, fontSize: 16 }}>
+                <Text
+                  style={{
+                    color: "white",
+                    marginTop: 5,
+                    fontSize: 16,
+                    fontFamily: fontsLoaded ? "OpenSans" : "",
+                  }}
+                >
                   {item.title}
                 </Text>
               </>
@@ -151,13 +159,13 @@ export function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     flex: 1,
     paddingTop: Platform.OS === "android" ? 25 : 0,
     alignItems: "center",
   },
   elementsContainer: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     justifyContent: "center",
     alignItems: "center",
     top: 70,

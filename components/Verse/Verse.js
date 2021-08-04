@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   verseContainer: {
-    width: "98%",
+    width: "95%",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 2,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   verseText: {
     fontSize: 17,
-    marginLeft: 8,
+    marginLeft: 5,
     paddingTop: 2,
   },
 });
