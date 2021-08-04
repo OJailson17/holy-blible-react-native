@@ -13,8 +13,13 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { useFonts } from "@expo-google-fonts/inter";
 
 export function HomeScreen({ navigation }) {
+  let [fontsLoaded] = useFonts({
+    Prata: require("../../fonts/Prata-Regular.ttf"),
+  });
+
   const iconStyle = {
     size: 35,
     color: "white",
@@ -98,10 +103,14 @@ export function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Title */}
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Bíblia</Text>
-        <Text style={styles.title}>Sagrada</Text>
-      </View>
+      {!fontsLoaded ? (
+        <Text>Não carregou</Text>
+      ) : (
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Bíblia</Text>
+          <Text style={styles.title}>Sagrada</Text>
+        </View>
+      )}
 
       {/* Elements */}
       <View style={styles.elementsContainer}>
@@ -182,5 +191,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
+    fontFamily: "Prata",
   },
 });
