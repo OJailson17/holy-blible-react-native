@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen } from "./screens/Home/HomeScreen";
 import { BibleScreen } from "./screens/Bible/BibleScreen";
+import { WordOfDayScreen } from "./screens/WordOfDay/WordOfDayScreen";
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,8 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Bible" component={BibleScreen} />
+          <Stack.Screen name="Biblia" component={BibleScreen} />
+          <Stack.Screen name="Palavra do dia" component={WordOfDayScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

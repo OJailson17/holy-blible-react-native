@@ -35,7 +35,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 2,
       title: "Palavra do dia",
-      screen: "Palavra",
+      screen: "Palavra do dia",
       icon: () => (
         <FontAwesome
           name="comment-o"
@@ -47,7 +47,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 3,
       title: "Versículos Favoritos",
-      screen: "Favorites",
+      screen: "Versículos Favoritos",
       icon: () => (
         <AntDesign name="star" size={iconStyle.size} color={iconStyle.color} />
       ),
@@ -55,7 +55,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 4,
       title: "Versículos para vida",
-      screen: "Topics",
+      screen: "Versículos para vida",
       icon: () => (
         <FontAwesome5
           name="list-alt"
@@ -67,7 +67,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 1,
       title: "Velho Testamento",
-      screen: "Old",
+      screen: "Velho Testamento",
       icon: () => (
         <Image
           source={require("../../assets/ten-commandments.png")}
@@ -78,7 +78,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 1,
       title: "Novo Testamento",
-      screen: "New",
+      screen: "Novo Testamento",
       icon: () => (
         <Image
           source={require("../../assets/grain.png")}
@@ -112,7 +112,7 @@ export function HomeScreen({ navigation }) {
           renderItem={({ item }) => (
             <TouchableHighlight
               style={styles.elementWrapper}
-              onPress={() => navigation.navigate("Bible")}
+              onPress={() => navigation.navigate("Palavra do dia")}
               activeOpacity={0.1}
               underlayColor="#3695c9"
             >
