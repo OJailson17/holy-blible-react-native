@@ -108,8 +108,7 @@ export function HomeScreen({ navigation }) {
         <Text>Não carregou</Text>
       ) : (
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Bíblia</Text>
-          <Text style={styles.title}>Sagrada</Text>
+          <Text style={styles.title}>Bíblia Sagrada</Text>
         </View>
       )}
 
@@ -134,6 +133,7 @@ export function HomeScreen({ navigation }) {
                     marginTop: 5,
                     fontSize: 16,
                     fontFamily: fontsLoaded ? "OpenSans" : "",
+                    textAlign: "center",
                   }}
                 >
                   {item.title}
@@ -200,5 +200,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 60,
     fontFamily: "Prata",
+    textAlign: "center",
   },
 });
