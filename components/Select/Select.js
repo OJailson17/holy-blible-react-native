@@ -1,4 +1,4 @@
-import { Picker } from "@react-native-picker/picker";
+import { Picker as SelectPicker } from "@react-native-picker/picker";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useState } from "react/cjs/react.development";
@@ -22,15 +22,15 @@ export const Select = () => {
 
   return (
     <View style={[styles.selectContainer]}>
-      <Picker
+      <SelectPicker
         selectedValue={selectedValue}
         onValueChange={(livro) => setSelectedValue(livro)}
         style={{ width: "100%", height: "100%" }}
       >
         {list.map((livro) => (
-          <Picker.Item label={livro} value={livro} key={livro} />
+          <SelectPicker.Item label={livro} value={livro} key={livro} />
         ))}
-      </Picker>
+      </SelectPicker>
     </View>
   );
 };

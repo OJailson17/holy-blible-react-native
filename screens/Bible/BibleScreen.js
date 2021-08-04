@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Button,
   Dimensions,
   ScrollView,
   StyleSheet,
@@ -14,23 +13,29 @@ import { Verse } from "../../components/Verse/Verse";
 export function BibleScreen() {
   return (
     <View style={styles.container}>
+      {/* Selects */}
       <View style={{ width: "90%" }}>
         <Text style={styles.label}>Escolha um livro</Text>
         <Select />
 
-        <Text style={[styles.label, { marginTop: 10 }]}>
-          Escolha um capítulo
-        </Text>
+        <Text style={styles.label}>Escolha um capítulo</Text>
         <Select />
       </View>
       <ScrollView
         contentContainerStyle={{
           alignItems: "center",
-          // backgroundColor: "red",
           width: Dimensions.get("window").width,
         }}
       >
+        {/* Capítulo */}
+        <View style={styles.chapterInfoContainer}>
+          <Text style={styles.chapterInfo}>Salmos 91</Text>
+        </View>
+
+        {/* Versículos */}
         <Verse />
+
+        {/* Paginação */}
         <View style={styles.paginationBtnContainer}>
           <TouchableOpacity style={styles.paginationBtn}>
             <Text style={styles.btnText}>Anterior</Text>
@@ -70,5 +75,17 @@ const styles = StyleSheet.create({
   btnText: {
     color: "white",
     fontSize: 16,
+  },
+  label: {
+    marginTop: 10,
+  },
+  chapterInfoContainer: {
+    width: "90%",
+    marginTop: 20,
+  },
+  chapterInfo: {
+    fontSize: 24,
+    color: "black",
+    fontWeight: "bold",
   },
 });
