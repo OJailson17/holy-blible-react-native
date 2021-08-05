@@ -1,20 +1,15 @@
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import fakeVerseList from "../../utils/fakeVerseList";
 
-export const Verse = () => {
+export const Verse = ({ verses }) => {
   return (
     <View style={styles.verseWrapper}>
-      {fakeVerseList.map((verse) => {
-        if (verse.number === 2) {
-          return (
-            <View style={styles.verseContainer} key={verse.number}>
-              <Text style={styles.verseNum}>{verse.number}</Text>
-              <Text style={styles.verseText}>{verse.text}</Text>
-            </View>
-          );
-        }
-      })}
+      {verses.map((verse) => (
+        <View style={styles.verseContainer} key={verse.number}>
+          <Text style={styles.verseNum}>{verse.number}</Text>
+          <Text style={styles.verseText}>{verse.text}</Text>
+        </View>
+      ))}
     </View>
   );
 };

@@ -1,7 +1,6 @@
 import { Picker as SelectPicker } from "@react-native-picker/picker";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useState } from "react/cjs/react.development";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 
 const list = [
   "Gênesis",
@@ -44,6 +43,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "#3695c9",
-    // position: "relative",
   },
 });

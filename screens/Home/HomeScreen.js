@@ -29,7 +29,7 @@ export function HomeScreen({ navigation }) {
     {
       key: 1,
       title: "A Bíblia",
-      screen: "Bible",
+      screen: "Biblia",
       icon: () => (
         <FontAwesome5
           name="bible"
@@ -118,7 +118,7 @@ export function HomeScreen({ navigation }) {
           renderItem={({ item }) => (
             <TouchableHighlight
               style={styles.elementWrapper}
-              onPress={() => navigation.navigate("Novo Testamento")}
+              onPress={() => navigation.navigate(item.screen)}
               activeOpacity={0.1}
               underlayColor="#3695c9"
             >

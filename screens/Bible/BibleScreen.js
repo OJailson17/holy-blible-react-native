@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Select } from "../../components/Select/Select";
 import { Verse } from "../../components/Verse/Verse";
+import fakeVerseList from "../../utils/fakeVerseList";
 
 export function BibleScreen() {
   return (
@@ -33,7 +34,7 @@ export function BibleScreen() {
         </View>
 
         {/* Versículos */}
-        <Verse />
+        <Verse verses={fakeVerseList} />
 
         {/* Paginação */}
         <View style={styles.paginationBtnContainer}>

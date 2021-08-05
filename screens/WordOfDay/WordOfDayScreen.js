@@ -5,6 +5,13 @@ import { Buttons } from "../../components/Buttons/Buttons";
 import { Verse } from "../../components/Verse/Verse";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const verse = [
+  {
+    number: 2,
+    text: "Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza, e nele confiarei.",
+  },
+];
+
 export const WordOfDayScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -14,7 +21,7 @@ export const WordOfDayScreen = () => {
       </View>
 
       {/* Verse */}
-      <Verse />
+      <Verse verses={verse} />
 
       <Buttons />
     </ScrollView>
