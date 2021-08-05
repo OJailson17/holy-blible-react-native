@@ -8,6 +8,7 @@ import { BibleScreen } from "./screens/Bible/BibleScreen";
 import { WordOfDayScreen } from "./screens/WordOfDay/WordOfDayScreen";
 import { NewTestamentScreen } from "./screens/NewTestament/NewTestamentScreen";
 import { OldTestamentScreen } from "./screens/OldTestament/OldTestamentScreen";
+import { FavoriteVersesScreen } from "./screens/FavoriteVerses/FavoriteVersesScreen";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,10 @@ export default function App() {
           <Stack.Screen
             name="Velho Testamento"
             component={OldTestamentScreen}
+          />
+          <Stack.Screen
+            name="Versículos Favoritos"
+            component={FavoriteVersesScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
