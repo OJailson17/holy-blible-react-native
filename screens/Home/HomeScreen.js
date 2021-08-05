@@ -98,9 +98,6 @@ export function HomeScreen({ navigation }) {
     Linking.openURL("https://github.com/OJailson17/");
   };
 
-  // const handlePageNavigation = (screen) => {
-
-  // }
   return (
     <View style={styles.container}>
       {/* Title */}
@@ -121,7 +118,7 @@ export function HomeScreen({ navigation }) {
           renderItem={({ item }) => (
             <TouchableHighlight
               style={styles.elementWrapper}
-              onPress={() => navigation.navigate("Palavra do dia")}
+              onPress={() => navigation.navigate("Novo Testamento")}
               activeOpacity={0.1}
               underlayColor="#3695c9"
             >
