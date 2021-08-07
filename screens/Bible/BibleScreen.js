@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   Dimensions,
   ScrollView,
@@ -10,17 +11,41 @@ import {
 import { Select } from "../../components/Select/Select";
 import { Verse } from "../../components/Verse/Verse";
 import fakeVerseList from "../../utils/fakeVerseList";
+import styles from "./Bible.style";
 
 export function BibleScreen() {
+  const [books, setBooks] = useState([]);
+
+  const getBooks = async () => {
+    try {
+      const response = await fetch(
+        "https://www.abibliadigital.com.br/api/books",
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRodSBKdWwgMDggMjAyMSAwNzowODozNCBHTVQrMDAwMC5qYXlsbHNvbnNvdXNhM0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3MjgxMTR9.zhoFn6pH-aOENIf4NKUnzZiC6enc8o8a7Zl6I14n8d0",
+          },
+        }
+      );
+      const data = await response.json();
+      setBooks(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBooks();
+  }, []);
   return (
     <View style={styles.container}>
       {/* Selects */}
       <View style={{ width: "90%" }}>
         <Text style={styles.label}>Escolha um livro</Text>
-        <Select />
+        <Select selectData={books} />
 
         <Text style={styles.label}>Escolha um capítulo</Text>
-        <Select />
+        <Select selectData={books} />
       </View>
       <ScrollView
         contentContainerStyle={{
@@ -49,44 +74,3 @@ export function BibleScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    height: "100%",
-  },
-  paginationBtnContainer: {
-    height: 60,
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    position: "relative",
-    paddingHorizontal: 10,
-  },
-  paginationBtn: {
-    height: 40,
-    width: "40%",
-    backgroundColor: "#3695c9",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnText: {
-    color: "white",
-    fontSize: 16,
-  },
-  label: {
-    marginTop: 10,
-  },
-  chapterInfoContainer: {
-    width: "90%",
-    marginTop: 20,
-  },
-  chapterInfo: {
-    fontSize: 24,
-    color: "black",
-    fontWeight: "bold",
-  },
-});

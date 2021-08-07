@@ -1,6 +1,7 @@
 import { Picker as SelectPicker } from "@react-native-picker/picker";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const list = [
   "Gênesis",
@@ -16,20 +17,40 @@ const list = [
   "2 Reis",
 ];
 
-export const Select = () => {
-  const [selectedValue, setSelectedValue] = useState("Salmos");
-
+export const Select = ({ selectData }) => {
+  const [selectedBook, setSelectedBook] = useState("Gênesis");
+  const [selectedChapter, setSelectedChapter] = useState("1");
   return (
     <View style={[styles.selectContainer]}>
-      <SelectPicker
-        selectedValue={selectedValue}
-        onValueChange={(livro) => setSelectedValue(livro)}
-        style={{ width: "100%", height: "100%" }}
-      >
-        {list.map((livro) => (
-          <SelectPicker.Item label={livro} value={livro} key={livro} />
-        ))}
-      </SelectPicker>
+      {typeof selectData === "object" ? (
+        <SelectPicker
+          selectedValue={selectedBook}
+          onValueChange={(livro) => setSelectedBook(livro)}
+          style={{ width: "100%", height: "100%" }}
+        >
+          {selectData.map((livro) => (
+            <SelectPicker.Item
+              label={livro?.name}
+              value={livro?.abbrev?.pt}
+              key={livro?.abbrev?.pt}
+            />
+          ))}
+        </SelectPicker>
+      ) : (
+        <SelectPicker
+          selectedValue={selectedChapter}
+          onValueChange={(chapter) => setSelectedChapter(chapter)}
+          style={{ width: "100%", height: "100%" }}
+        >
+          {[...Array(selectData)].map((chapter) => (
+            <SelectPicker.Item
+              label={String(chapter)}
+              value={String(chapter)}
+              key={String(chapter)}
+            />
+          ))}
+        </SelectPicker>
+      )}
     </View>
   );
 };
