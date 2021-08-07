@@ -9,6 +9,7 @@ import { WordOfDayScreen } from "./screens/WordOfDay/WordOfDayScreen";
 import { NewTestamentScreen } from "./screens/NewTestament/NewTestamentScreen";
 import { OldTestamentScreen } from "./screens/OldTestament/OldTestamentScreen";
 import { FavoriteVersesScreen } from "./screens/FavoriteVerses/FavoriteVersesScreen";
+import { TopicsScreen } from "./screens/Topics/TopicsScreen";
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,7 @@ export default function App() {
             name="Versículos Favoritos"
             component={FavoriteVersesScreen}
           />
+          <Stack.Screen name="Versículos para Vida" component={TopicsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

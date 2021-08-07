@@ -60,8 +60,8 @@ export function HomeScreen({ navigation }) {
     },
     {
       key: 4,
-      title: "Versículos para vida",
-      screen: "Versículos para vida",
+      title: "Versículos para Vida",
+      screen: "Versículos para Vida",
       icon: () => (
         <FontAwesome5
           name="list-alt"
