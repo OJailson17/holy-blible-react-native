@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   listContainer: {
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 20,
   },
   item: {
     width: width,
