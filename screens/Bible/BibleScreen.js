@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Select } from "../../components/Select/Select";
 import { Verse } from "../../components/Verse/Verse";
 import fakeVerseList from "../../utils/fakeVerseList";
@@ -15,6 +16,9 @@ import styles from "./Bible.style";
 
 export function BibleScreen() {
   const [books, setBooks] = useState([]);
+  const [verses, setVerses] = useState();
+  const [book, setBook] = useState("");
+  const [chapter, setChapter] = useState("");
 
   const getBooks = async () => {
     try {
@@ -34,9 +38,26 @@ export function BibleScreen() {
     }
   };
 
+  const getVerses = async () => {
+    try {
+      const verse = await AsyncStorage.getItem("verses");
+      const chapter = await AsyncStorage.getItem("chapter");
+      const book = await AsyncStorage.getItem("book");
+
+      setBook(book);
+      setChapter(chapter);
+      setVerses(JSON.parse(verse));
+      // console.log(chapter);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getBooks();
+    getVerses();
   }, []);
+
   return (
     <View style={styles.container}>
       {/* Selects */}
@@ -45,7 +66,7 @@ export function BibleScreen() {
         <Select selectData={books} />
 
         <Text style={styles.label}>Escolha um capítulo</Text>
-        <Select selectData={books} />
+        <Select />
       </View>
       <ScrollView
         contentContainerStyle={{
@@ -55,11 +76,13 @@ export function BibleScreen() {
       >
         {/* Capítulo */}
         <View style={styles.chapterInfoContainer}>
-          <Text style={styles.chapterInfo}>Salmos 91</Text>
+          <Text style={styles.chapterInfo}>
+            {book}:{chapter}
+          </Text>
         </View>
 
         {/* Versículos */}
-        <Verse verses={fakeVerseList} />
+        <Verse verses={verses ? verses : fakeVerseList} />
 
         {/* Paginação */}
         <View style={styles.paginationBtnContainer}>
