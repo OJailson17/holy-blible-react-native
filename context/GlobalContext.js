@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 
 export function GlobalContextProvider({ children }) {
   const [books, setBooks] = useState([]);
-  const [book, setBook] = useState("sl");
+  const [book, setBook] = useState("gn");
   const [chapter, setChapter] = useState("1");
   const [verseNum, setVerseNum] = useState("1");
 

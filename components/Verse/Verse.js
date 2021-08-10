@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import * as Random from "expo-random";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export const Verse = ({ verses }) => {
-  const { book, chapter, verse } = useContext(GlobalContext);
-
   return (
     <View style={styles.verseWrapper}>
       {verses.map((verse) => (
-        <View style={styles.verseContainer} key={verse.number}>
+        <View style={styles.verseContainer} key={Random.getRandomBytes(100)}>
           <Text style={styles.verseNum}>{verse.number}</Text>
           <Text style={styles.verseText}>{verse.text}</Text>
         </View>
