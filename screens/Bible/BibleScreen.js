@@ -20,25 +20,7 @@ export function BibleScreen() {
   const [verses, setVerses] = useState([]);
   const [bookName, setBookName] = useState("");
 
-  const { books, setBooks, book, chapter } = useContext(GlobalContext);
-
-  const getBooks = async () => {
-    try {
-      const response = await fetch(
-        "https://www.abibliadigital.com.br/api/books",
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRodSBKdWwgMDggMjAyMSAwNzowODozNCBHTVQrMDAwMC5qYXlsbHNvbnNvdXNhM0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3MjgxMTR9.zhoFn6pH-aOENIf4NKUnzZiC6enc8o8a7Zl6I14n8d0",
-          },
-        }
-      );
-      const data = await response.json();
-      setBooks(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { books, book, chapter, setNewTestament } = useContext(GlobalContext);
 
   // Get chapter data
   const getChapter = async () => {
@@ -59,10 +41,6 @@ export function BibleScreen() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getBooks();
-  }, []);
 
   useEffect(() => {
     getChapter();

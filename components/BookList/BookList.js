@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import fakeBookList from "../../utils/fakeBookList";
+// import fakeBookList from "../../utils/fakeBookList";
 
-export const BookList = () => {
+export const BookList = ({ books }) => {
   return (
     <View>
       <SectionList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
-        sections={fakeBookList}
+        sections={books}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item}>
