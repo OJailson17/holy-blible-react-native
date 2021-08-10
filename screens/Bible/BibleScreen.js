@@ -20,7 +20,8 @@ export function BibleScreen() {
   const [verses, setVerses] = useState([]);
   const [bookName, setBookName] = useState("");
 
-  const { books, book, chapter, setNewTestament } = useContext(GlobalContext);
+  const { books, book, chapter, setChapter, setNewTestament, qtdChapters } =
+    useContext(GlobalContext);
 
   // Get chapter data
   const getChapter = async () => {
@@ -39,6 +40,29 @@ export function BibleScreen() {
       setBookName(data?.book?.name);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const goPrev = () => {
+    const number = Number(chapter);
+    const chapterValue = String(number - 1);
+
+    if (number <= 1) {
+      return;
+    } else {
+      setChapter(chapterValue);
+    }
+  };
+
+  const goNext = () => {
+    const number = Number(chapter);
+    const chapterValue = String(number + 1);
+
+    if (number >= qtdChapters) {
+      return;
+    } else {
+      setChapter(chapterValue);
+      console.log(chapterValue);
     }
   };
 
@@ -74,10 +98,10 @@ export function BibleScreen() {
 
         {/* Paginação */}
         <View style={styles.paginationBtnContainer}>
-          <TouchableOpacity style={styles.paginationBtn}>
+          <TouchableOpacity style={styles.paginationBtn} onPress={goPrev}>
             <Text style={styles.btnText}>Anterior</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.paginationBtn}>
+          <TouchableOpacity style={styles.paginationBtn} onPress={goNext}>
             <Text style={styles.btnText}>Próximo</Text>
           </TouchableOpacity>
         </View>

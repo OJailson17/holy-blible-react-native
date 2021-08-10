@@ -21,9 +21,8 @@ const list = [
 ];
 
 export const Select = ({ selectData }) => {
-  const [qtdChapters, setQtdChapters] = useState("");
-
-  const { book, setBook, chapter, setChapter } = useContext(GlobalContext);
+  const { book, setBook, chapter, setChapter, qtdChapters, setQtdChapters } =
+    useContext(GlobalContext);
 
   // Get book data
   const getBook = async () => {
