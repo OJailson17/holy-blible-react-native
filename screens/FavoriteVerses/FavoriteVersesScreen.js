@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Verse } from "../../components/Verse/Verse";
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const verse = [
   {
@@ -72,6 +73,17 @@ const verse = [
 ];
 
 export const FavoriteVersesScreen = () => {
+  const [listItems, setListItems] = useState([]);
+
+  useEffect(() => {
+    const start = async () => {
+      const list = await AsyncStorage.getItem("favorites");
+      // console.log(list);
+      setListItems(JSON.parse(list));
+    };
+    start();
+  }, []);
+  // console.log(listItems);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -86,9 +98,11 @@ export const FavoriteVersesScreen = () => {
           <MaterialIcons name="delete" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      {verse.map((verse, index) => (
+      {listItems?.map((verse, index) => (
         <TouchableOpacity style={styles.container} key={index}>
-          <Text style={styles.verseInfo}>Salmos 91:2</Text>
+          <Text style={styles.verseInfo}>
+            {verse.name} {verse.chapter}
+          </Text>
           <View style={styles.separator}></View>
           <Verse verses={[verse]} />
         </TouchableOpacity>
@@ -99,7 +113,7 @@ export const FavoriteVersesScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "98%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,

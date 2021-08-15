@@ -5,7 +5,7 @@ import { BookList } from "../../components/BookList/BookList";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export const NewTestamentScreen = () => {
-  const { books } = useContext(GlobalContext);
+  const { books, book } = useContext(GlobalContext);
   const cartasBooks = [];
   const evangelhosBooks = [];
   const revelaçõesBooks = [];

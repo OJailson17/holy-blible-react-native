@@ -1,13 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Buttons } from "../../components/Buttons/Buttons";
 import { Verse } from "../../components/Verse/Verse";
+import { GlobalContext } from "../../context/GlobalContext";
 
-export const WordOfDayScreen = () => {
+export const WordOfDayScreen = ({ navigation }) => {
   const [randomVerse, setRandomVerse] = useState({});
+  const { setChapter, setBook, book } = useContext(GlobalContext);
+  const [verse, setVerse] = useState({});
 
   const getWordOfDay = async () => {
     try {
@@ -26,8 +30,12 @@ export const WordOfDayScreen = () => {
         text: data.text,
         name: data.book.name,
         chapter: data.chapter,
+        abbrev: data.book.abbrev.pt,
       };
+      setChapter(verse.chapter);
       setRandomVerse(verse);
+      setBook(verse.abbrev);
+      setVerse(verse);
       await AsyncStorage.setItem("verseOfDay", JSON.stringify(verse));
     } catch (error) {
       console.log(error);
@@ -35,8 +43,17 @@ export const WordOfDayScreen = () => {
   };
 
   const getVerseFromStorage = async () => {
-    const verse = await AsyncStorage.getItem("verseOfDay");
-    return verse;
+    try {
+      const verse = await AsyncStorage.getItem("verseOfDay");
+      // await AsyncStorage.removeItem("date");
+      setVerse(JSON.parse(verse));
+      setBook(JSON.parse(verse).abbrev);
+      const chapter = await JSON.parse(verse).chapter;
+      setChapter(String(chapter));
+      return verse;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const checkDate = async () => {
@@ -75,7 +92,7 @@ export const WordOfDayScreen = () => {
       </View>
       {/* Verse */}
       <Verse verses={[randomVerse]} />
-      <Buttons />
+      <Buttons navigation={navigation} book={book} verse={verse} />
     </ScrollView>
   );
 };

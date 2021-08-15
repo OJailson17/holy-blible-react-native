@@ -15,6 +15,9 @@ import fakeVerseList from "../../utils/fakeVerseList";
 import styles from "./Bible.style";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import { createRef } from "react";
+
+const scroll = createRef();
 
 export function BibleScreen() {
   const [verses, setVerses] = useState([]);
@@ -52,6 +55,7 @@ export function BibleScreen() {
     } else {
       setChapter(chapterValue);
     }
+    scroll.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   const goNext = () => {
@@ -62,8 +66,8 @@ export function BibleScreen() {
       return;
     } else {
       setChapter(chapterValue);
-      console.log(chapterValue);
     }
+    scroll.current.scrollTo({ x: 0, y: 0, animated: true });
   };
 
   useEffect(() => {
@@ -85,6 +89,7 @@ export function BibleScreen() {
           alignItems: "center",
           width: Dimensions.get("window").width,
         }}
+        ref={scroll}
       >
         {/* Capítulo */}
         <View style={styles.chapterInfoContainer}>

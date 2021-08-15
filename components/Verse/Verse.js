@@ -10,7 +10,7 @@ export const Verse = ({ verses }) => {
     <View style={styles.verseWrapper}>
       {verses.map((verse) => (
         <View style={styles.verseContainer} key={Random.getRandomBytes(100)}>
-          <Text style={styles.verseNum}>{verse.number}</Text>
+          <Text style={styles.verseNum}>{String(verse.number)}</Text>
           <Text style={styles.verseText}>{verse.text}</Text>
         </View>
       ))}
