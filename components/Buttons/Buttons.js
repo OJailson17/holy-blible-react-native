@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GlobalContext } from "../../context/GlobalContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addFavorite } from "../../helper/addFavorite";
+import { checkFavoriteList } from "../../helper/checkFavoriteList";
 
 export const Buttons = ({ navigation, book, verse }) => {
   const { chapter, setBook } = useContext(GlobalContext);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (checkFavoriteList(verse)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, []);
 
   // !Corrigir essa função
   const readChapter = () => {
@@ -18,7 +28,9 @@ export const Buttons = ({ navigation, book, verse }) => {
   return (
     <View style={styles.btnContainer}>
       <TouchableOpacity style={styles.btn} onPress={() => addFavorite(verse)}>
-        <Text style={styles.btnText}>Adicionar aos favoritos</Text>
+        <Text style={styles.btnText}>
+          {isFavorite ? "Remover favorito" : "Adicionar aos favoritos"}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={readChapter}>
         <Text style={styles.btnText}>Ler capítulo</Text>
