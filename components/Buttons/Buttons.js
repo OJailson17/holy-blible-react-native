@@ -28,9 +28,7 @@ export const Buttons = ({ navigation, book, verse }) => {
   return (
     <View style={styles.btnContainer}>
       <TouchableOpacity style={styles.btn} onPress={() => addFavorite(verse)}>
-        <Text style={styles.btnText}>
-          {isFavorite ? "Remover favorito" : "Adicionar aos favoritos"}
-        </Text>
+        <Text style={styles.btnText}>Adicionar aos Favoritos</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={readChapter}>
         <Text style={styles.btnText}>Ler capítulo</Text>

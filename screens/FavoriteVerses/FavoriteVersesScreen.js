@@ -17,13 +17,15 @@ export const FavoriteVersesScreen = () => {
     getListItems();
   }, []);
 
-  useEffect(() => {
-    getListItems();
-  }, [listItems]);
+  // useEffect(() => {
+  //   getListItems();
+  // }, [listItems]);
 
   const removeAllFavorites = async () => {
-    await AsyncStorage.clear();
+    await AsyncStorage.removeItem("favorites");
+    getListItems();
   };
+  console.log(listItems);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -32,23 +34,39 @@ export const FavoriteVersesScreen = () => {
         alignItems: "center",
       }}
     >
-      <View style={styles.removeContainer}>
-        <TouchableOpacity style={styles.removeBtn}>
-          <Text style={styles.removeBtnText} onPress={removeAllFavorites}>
-            Remover Tudo
+      {listItems ? (
+        <>
+          <View style={styles.removeContainer}>
+            <TouchableOpacity
+              style={styles.removeBtn}
+              onPress={removeAllFavorites}
+            >
+              <Text style={styles.removeBtnText}>Remover Tudo</Text>
+              <MaterialIcons name="delete" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+          {listItems?.map((verse, index) => (
+            <TouchableOpacity style={styles.container} key={index}>
+              <Text style={styles.verseInfo}>
+                {verse.name} {verse.chapter}
+              </Text>
+              <View style={styles.separator}></View>
+              <Verse verses={[verse]} />
+            </TouchableOpacity>
+          ))}
+        </>
+      ) : (
+        <View style={styles.emptyContainer}>
+          <Text
+            style={{
+              color: "gray",
+              fontSize: 18,
+            }}
+          >
+            Nenhum favorito
           </Text>
-          <MaterialIcons name="delete" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-      {listItems?.map((verse, index) => (
-        <TouchableOpacity style={styles.container} key={index}>
-          <Text style={styles.verseInfo}>
-            {verse.name} {verse.chapter}
-          </Text>
-          <View style={styles.separator}></View>
-          <Verse verses={[verse]} />
-        </TouchableOpacity>
-      ))}
+        </View>
+      )}
     </ScrollView>
   );
 };
