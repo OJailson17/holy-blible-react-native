@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  Button,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Verse } from "../../components/Verse/Verse";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { removeFavorite } from "../../helper/removeFavorite";
 
 export const FavoriteVersesScreen = () => {
   const [listItems, setListItems] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const getListItems = async () => {
     const list = await AsyncStorage.getItem("favorites");
@@ -17,15 +26,18 @@ export const FavoriteVersesScreen = () => {
     getListItems();
   }, []);
 
-  // useEffect(() => {
-  //   getListItems();
-  // }, [listItems]);
-
   const removeAllFavorites = async () => {
     await AsyncStorage.removeItem("favorites");
     getListItems();
   };
-  console.log(listItems);
+
+  const removeFavoriteVerse = (e) => {
+    let verse = e._dispatchInstances.memoizedProps.children[0][2].props;
+    // removeFavorite(verse);
+    console.log(verse);
+    // setModalVisible(!modalVisible);
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -34,6 +46,28 @@ export const FavoriteVersesScreen = () => {
         alignItems: "center",
       }}
     >
+      {/* Modal */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalWrapper}>
+            <Text>Eliminar favorito</Text>
+            <TouchableOpacity
+              onPress={removeFavoriteVerse}
+              style={styles.removeModalBtn}
+            >
+              <Text style={{ color: "white", fontSize: 18 }}>Apagar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       {listItems ? (
         <>
           <View style={styles.removeContainer}>
@@ -46,7 +80,11 @@ export const FavoriteVersesScreen = () => {
             </TouchableOpacity>
           </View>
           {listItems?.map((verse, index) => (
-            <TouchableOpacity style={styles.container} key={index}>
+            <TouchableOpacity
+              style={styles.container}
+              key={index}
+              onLongPress={() => setModalVisible(true)}
+            >
               <Text style={styles.verseInfo}>
                 {verse.name} {verse.chapter}
               </Text>
@@ -102,5 +140,25 @@ const styles = StyleSheet.create({
   removeBtnText: {
     color: "black",
     fontSize: 16,
+  },
+  modalContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  modalWrapper: {
+    backgroundColor: "#cecaca",
+    height: 100,
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  removeModalBtn: {
+    backgroundColor: "#3695c9",
+    width: "50%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
   },
 });
