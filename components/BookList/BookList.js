@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Dimensions,
   SectionList,
@@ -7,9 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { GlobalContext } from "../../context/GlobalContext";
 // import fakeBookList from "../../utils/fakeBookList";
 
-export const BookList = ({ books }) => {
+export const BookList = ({ books, navigation }) => {
+  const { setBook } = useContext(GlobalContext);
+
+  const navigate = (book) => {
+    setBook(book);
+    navigation.navigate("Biblia");
+  };
+
   return (
     <View>
       <SectionList
@@ -17,8 +25,11 @@ export const BookList = ({ books }) => {
         contentContainerStyle={styles.listContainer}
         sections={books}
         keyExtractor={(item, index) => index}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item}>
+        renderItem={({ item, section: { abbrev }, index }) => (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigate(abbrev[index])}
+          >
             <Text style={styles.textItem}>{item}</Text>
           </TouchableOpacity>
         )}
