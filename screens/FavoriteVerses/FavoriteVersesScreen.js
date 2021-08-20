@@ -16,10 +16,15 @@ import { removeFavorite } from "../../helper/removeFavorite";
 export const FavoriteVersesScreen = () => {
   const [listItems, setListItems] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [deletedVerse, setDeletedVerse] = useState([]);
 
   const getListItems = async () => {
     const list = await AsyncStorage.getItem("favorites");
-    setListItems(JSON.parse(list));
+    if (!list) {
+      setListItems([]);
+    } else {
+      setListItems(JSON.parse(list));
+    }
   };
 
   useEffect(() => {
@@ -31,11 +36,18 @@ export const FavoriteVersesScreen = () => {
     getListItems();
   };
 
-  const removeFavoriteVerse = (e) => {
-    let verse = e._dispatchInstances.memoizedProps.children[0][2].props;
-    // removeFavorite(verse);
-    console.log(verse);
-    // setModalVisible(!modalVisible);
+  const removeFavoriteVerse = () => {
+    removeFavorite(deletedVerse);
+    setModalVisible(!modalVisible);
+
+    setTimeout(() => {
+      getListItems();
+    }, 1000);
+  };
+
+  const showModal = (verse) => {
+    setDeletedVerse(verse);
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -68,7 +80,7 @@ export const FavoriteVersesScreen = () => {
         </View>
       </Modal>
 
-      {listItems ? (
+      {listItems.length > 0 ? (
         <>
           <View style={styles.removeContainer}>
             <TouchableOpacity
@@ -83,7 +95,7 @@ export const FavoriteVersesScreen = () => {
             <TouchableOpacity
               style={styles.container}
               key={index}
-              onLongPress={() => setModalVisible(true)}
+              onLongPress={() => showModal(verse)}
             >
               <Text style={styles.verseInfo}>
                 {verse.name} {verse.chapter}
