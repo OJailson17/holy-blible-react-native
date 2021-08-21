@@ -102,7 +102,9 @@ export function HomeScreen({ navigation }) {
     <View style={styles.container}>
       {/* Title */}
       {!fontsLoaded ? (
-        <Text>Não carregou</Text>
+        <Text style={{ textAlign: "center", fontSize: 65, top: 30 }}>
+          Biblia Sagrada
+        </Text>
       ) : (
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Bíblia Sagrada</Text>
