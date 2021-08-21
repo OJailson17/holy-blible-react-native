@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Select } from "../../components/Select/Select";
@@ -16,12 +17,14 @@ import styles from "./Bible.style";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { createRef } from "react";
+import { Loader } from "../../components/Loader/Loader";
 
 const scroll = createRef();
 
 export function BibleScreen() {
   const [verses, setVerses] = useState([]);
   const [bookName, setBookName] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
 
   const { books, book, chapter, setChapter, setNewTestament, qtdChapters } =
     useContext(GlobalContext);
@@ -41,6 +44,7 @@ export function BibleScreen() {
       const data = await response.json();
       setVerses(data.verses);
       setBookName(data?.book?.name);
+      setIsVisible(false);
     } catch (error) {
       console.log(error);
     }
@@ -91,25 +95,30 @@ export function BibleScreen() {
         }}
         ref={scroll}
       >
-        {/* Capítulo */}
-        <View style={styles.chapterInfoContainer}>
-          <Text style={styles.chapterInfo}>
-            {bookName}:{chapter}
-          </Text>
-        </View>
-
         {/* Versículos */}
-        <Verse verses={verses ? verses : fakeVerseList} />
+        {isVisible ? (
+          <Loader isVisible={isVisible} />
+        ) : (
+          <>
+            {/* Capítulo */}
+            <View style={styles.chapterInfoContainer}>
+              <Text style={styles.chapterInfo}>
+                {bookName}:{chapter}
+              </Text>
+            </View>
+            <Verse verses={verses ? verses : fakeVerseList} />
 
-        {/* Paginação */}
-        <View style={styles.paginationBtnContainer}>
-          <TouchableOpacity style={styles.paginationBtn} onPress={goPrev}>
-            <Text style={styles.btnText}>Anterior</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.paginationBtn} onPress={goNext}>
-            <Text style={styles.btnText}>Próximo</Text>
-          </TouchableOpacity>
-        </View>
+            {/* Paginação */}
+            <View style={styles.paginationBtnContainer}>
+              <TouchableOpacity style={styles.paginationBtn} onPress={goPrev}>
+                <Text style={styles.btnText}>Anterior</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.paginationBtn} onPress={goNext}>
+                <Text style={styles.btnText}>Próximo</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </ScrollView>
     </View>
   );

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Buttons } from "../../components/Buttons/Buttons";
+import { Loader } from "../../components/Loader/Loader";
 import { Verse } from "../../components/Verse/Verse";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -12,6 +13,7 @@ export const WordOfDayScreen = ({ navigation }) => {
   const [randomVerse, setRandomVerse] = useState({});
   const { setChapter, setBook, book } = useContext(GlobalContext);
   const [verse, setVerse] = useState({});
+  const [isVisible, setIsVisible] = useState(true);
 
   const getWordOfDay = async () => {
     try {
@@ -36,6 +38,7 @@ export const WordOfDayScreen = ({ navigation }) => {
       setRandomVerse(verse);
       setBook(verse.abbrev);
       setVerse(verse);
+      setIsVisible(false);
       await AsyncStorage.setItem("verseOfDay", JSON.stringify(verse));
     } catch (error) {
       console.log(error);
@@ -50,6 +53,7 @@ export const WordOfDayScreen = ({ navigation }) => {
       setBook(JSON.parse(verse).abbrev);
       const chapter = await JSON.parse(verse).chapter;
       setChapter(String(chapter));
+      setIsVisible(false);
       return verse;
     } catch (error) {
       console.log(error);
@@ -84,15 +88,21 @@ export const WordOfDayScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Verse info */}
-      <View style={styles.verseInfoContainer}>
-        <Text style={styles.verseInfo}>
-          {randomVerse.name} {randomVerse.chapter}:{randomVerse.number}
-        </Text>
-      </View>
-      {/* Verse */}
-      <Verse verses={[randomVerse]} />
-      <Buttons navigation={navigation} book={book} verse={verse} />
+      {isVisible ? (
+        <Loader />
+      ) : (
+        <>
+          {/* Verse info */}
+          <View style={styles.verseInfoContainer}>
+            <Text style={styles.verseInfo}>
+              {randomVerse.name} {randomVerse.chapter}:{randomVerse.number}
+            </Text>
+          </View>
+          {/* Verse */}
+          <Verse verses={[randomVerse]} />
+          <Buttons navigation={navigation} book={book} verse={verse} />
+        </>
+      )}
     </ScrollView>
   );
 };
