@@ -8,10 +8,12 @@ import { Buttons } from "../../components/Buttons/Buttons";
 import { Loader } from "../../components/Loader/Loader";
 import { Verse } from "../../components/Verse/Verse";
 import { GlobalContext } from "../../context/GlobalContext";
+import { checkFavoriteList } from "../../helper/checkFavoriteList";
 
 export const WordOfDayScreen = ({ navigation }) => {
   const [randomVerse, setRandomVerse] = useState({});
-  const { setChapter, setBook, book } = useContext(GlobalContext);
+  const { setChapter, setBook, book, setIsFavorite } =
+    useContext(GlobalContext);
   const [verse, setVerse] = useState({});
   const [isVisible, setIsVisible] = useState(true);
 
@@ -85,6 +87,17 @@ export const WordOfDayScreen = ({ navigation }) => {
     };
     checkVerse();
   }, []);
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if (await checkFavoriteList(verse)) {
+        setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
+      }
+    };
+    checkFavorite();
+  }, [verse]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

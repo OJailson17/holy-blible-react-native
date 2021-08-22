@@ -11,6 +11,7 @@ export function GlobalContextProvider({ children }) {
   const [qtdChapters, setQtdChapters] = useState("");
   const [verseNum, setVerseNum] = useState("1");
   const [newTestament, setNewTestament] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const getBooks = async () => {
     try {
@@ -51,6 +52,8 @@ export function GlobalContextProvider({ children }) {
         setNewTestament,
         qtdChapters,
         setQtdChapters,
+        isFavorite,
+        setIsFavorite,
       }}
     >
       {children}

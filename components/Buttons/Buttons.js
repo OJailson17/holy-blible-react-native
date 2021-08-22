@@ -5,18 +5,11 @@ import { GlobalContext } from "../../context/GlobalContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addFavorite } from "../../helper/addFavorite";
 import { checkFavoriteList } from "../../helper/checkFavoriteList";
+import { removeFavorite } from "../../helper/removeFavorite";
 
 export const Buttons = ({ navigation, book, verse }) => {
-  const { chapter, setBook } = useContext(GlobalContext);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    if (checkFavoriteList(verse)) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-  }, []);
+  const { chapter, setBook, isFavorite, setIsFavorite } =
+    useContext(GlobalContext);
 
   // !Corrigir essa função
   const readChapter = () => {
@@ -25,10 +18,25 @@ export const Buttons = ({ navigation, book, verse }) => {
     // console.log(book, chapter);
   };
 
+  const handleAdd = () => {
+    addFavorite(verse);
+    setIsFavorite(true);
+  };
+
+  const handleRemove = () => {
+    setIsFavorite(false);
+    removeFavorite(verse);
+  };
+
   return (
     <View style={styles.btnContainer}>
-      <TouchableOpacity style={styles.btn} onPress={() => addFavorite(verse)}>
-        <Text style={styles.btnText}>Adicionar aos Favoritos</Text>
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => (isFavorite ? handleRemove() : handleAdd())}
+      >
+        <Text style={styles.btnText}>
+          {isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={readChapter}>
         <Text style={styles.btnText}>Ler capítulo</Text>
