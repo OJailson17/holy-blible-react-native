@@ -12,6 +12,7 @@ import { Verse } from "../../components/Verse/Verse";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { removeFavorite } from "../../helper/removeFavorite";
+import { MyModal } from "../../components/Modal/Modal";
 
 export const FavoriteVersesScreen = () => {
   const [listItems, setListItems] = useState([]);
@@ -59,26 +60,13 @@ export const FavoriteVersesScreen = () => {
       }}
     >
       {/* Modal */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalWrapper}>
-            <Text>Eliminar favorito</Text>
-            <TouchableOpacity
-              onPress={removeFavoriteVerse}
-              style={styles.removeModalBtn}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Apagar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      <MyModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        textBtn={"Remover"}
+        modalText={"Deseja remover dos favoritos?"}
+        handleFunction={removeFavoriteVerse}
+      />
 
       {listItems.length > 0 ? (
         <>
@@ -152,25 +140,5 @@ const styles = StyleSheet.create({
   removeBtnText: {
     color: "black",
     fontSize: 16,
-  },
-  modalContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-  modalWrapper: {
-    backgroundColor: "#cecaca",
-    height: 100,
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  removeModalBtn: {
-    backgroundColor: "#3695c9",
-    width: "50%",
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
   },
 });
