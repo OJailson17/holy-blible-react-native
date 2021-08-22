@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { Verse } from "../../components/Verse/Verse";
+import { GlobalContext } from "../../context/GlobalContext";
 import TopicsData from "../../utils/TopicsData";
 
 const verse = [
@@ -16,14 +17,25 @@ const verse = [
   },
 ];
 
-export const TopicsScreen = () => {
+export const TopicsScreen = ({ navigation }) => {
+  const { setBook, setChapter } = useContext(GlobalContext);
+
+  const handleClick = (topic) => {
+    setBook(topic.book.abbrev);
+    setChapter(topic.chapter);
+    navigation.navigate("Biblia");
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {TopicsData.map((topic, index) => (
         <View style={styles.topicWrapper} key={index}>
           <Text style={styles.topicTitle}>{topic.title}</Text>
           <View style={styles.separator}></View>
-          <TouchableOpacity style={styles.topicBtn}>
+          <TouchableOpacity
+            style={styles.topicBtn}
+            onPress={() => handleClick(topic)}
+          >
             <Text
               style={styles.textBtn}
             >{`${topic.book.name}:${topic.chapter}`}</Text>
