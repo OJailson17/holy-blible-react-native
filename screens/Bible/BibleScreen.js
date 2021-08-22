@@ -23,11 +23,18 @@ const scroll = createRef();
 
 export function BibleScreen() {
   const [verses, setVerses] = useState([]);
-  const [bookName, setBookName] = useState("");
   const [isVisible, setIsVisible] = useState(true);
 
-  const { books, book, chapter, setChapter, setNewTestament, qtdChapters } =
-    useContext(GlobalContext);
+  const {
+    books,
+    book,
+    chapter,
+    setChapter,
+    setNewTestament,
+    qtdChapters,
+    setBookName,
+    bookName,
+  } = useContext(GlobalContext);
 
   // Get chapter data
   const getChapter = async () => {
@@ -75,6 +82,7 @@ export function BibleScreen() {
   };
 
   useEffect(() => {
+    setIsVisible(true);
     getChapter();
   }, [book, chapter]);
 
@@ -106,7 +114,7 @@ export function BibleScreen() {
                 {bookName}:{chapter}
               </Text>
             </View>
-            <Verse verses={verses ? verses : fakeVerseList} />
+            <Verse verses={verses ? verses : fakeVerseList} biblePage={true} />
 
             {/* Paginação */}
             <View style={styles.paginationBtnContainer}>

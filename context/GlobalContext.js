@@ -6,6 +6,7 @@ export const GlobalContext = createContext();
 export function GlobalContextProvider({ children }) {
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState("gn");
+  const [bookName, setBookName] = useState("");
   const [chapter, setChapter] = useState("1");
   const [qtdChapters, setQtdChapters] = useState("");
   const [verseNum, setVerseNum] = useState("1");
@@ -40,6 +41,8 @@ export function GlobalContextProvider({ children }) {
         setBooks,
         book,
         setBook,
+        bookName,
+        setBookName,
         chapter,
         setChapter,
         verseNum,
