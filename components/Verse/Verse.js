@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Random from "expo-random";
 import { GlobalContext } from "../../context/GlobalContext";
 import { addFavorite } from "../../helper/addFavorite";

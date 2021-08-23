@@ -1,24 +1,9 @@
 import { Picker as SelectPicker } from "@react-native-picker/picker";
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet, View } from "react-native";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-
-const list = [
-  "Gênesis",
-  "Êxodos",
-  "Mateus",
-  "Salmos",
-  "Povérbios",
-  "Apocalipse",
-  "Lucas",
-  "João",
-  "Judas",
-  "1 Reis",
-  "2 Reis",
-];
 
 export const Select = ({ selectData }) => {
   const { book, setBook, chapter, setChapter, qtdChapters, setQtdChapters } =

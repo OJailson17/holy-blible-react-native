@@ -6,16 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Verse } from "../../components/Verse/Verse";
 import { GlobalContext } from "../../context/GlobalContext";
 import TopicsData from "../../utils/TopicsData";
-
-const verse = [
-  {
-    number: 2,
-    text: "Direi do Senhor: Ele é o meu Deus, o meu refúgio, a minha fortaleza, e nele confiarei.",
-  },
-];
 
 export const TopicsScreen = ({ navigation }) => {
   const { setBook, setChapter } = useContext(GlobalContext);

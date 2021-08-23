@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import { GlobalContext } from "../../context/GlobalContext";
-// import fakeBookList from "../../utils/fakeBookList";
 
 export const BookList = ({ books, navigation }) => {
   const { setBook } = useContext(GlobalContext);

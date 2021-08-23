@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GlobalContext } from "../../context/GlobalContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addFavorite } from "../../helper/addFavorite";
-import { checkFavoriteList } from "../../helper/checkFavoriteList";
 import { removeFavorite } from "../../helper/removeFavorite";
 
 export const Buttons = ({ navigation, book, verse }) => {
-  const { chapter, setBook, isFavorite, setIsFavorite } =
-    useContext(GlobalContext);
+  const { setBook, isFavorite, setIsFavorite } = useContext(GlobalContext);
 
-  // !Corrigir essa função
   const readChapter = () => {
     navigation.navigate("Biblia");
     setBook(book);
-    // console.log(book, chapter);
   };
 
   const handleAdd = () => {
