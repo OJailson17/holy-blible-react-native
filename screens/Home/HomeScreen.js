@@ -25,6 +25,8 @@ export function HomeScreen({ navigation }) {
     size: 35,
     color: "white",
   };
+
+  // Home screen items
   const listItems = [
     {
       key: 1,
@@ -94,6 +96,7 @@ export function HomeScreen({ navigation }) {
     },
   ];
 
+  // Open github page
   const handleOpenLink = () => {
     Linking.openURL("https://github.com/OJailson17/");
   };
