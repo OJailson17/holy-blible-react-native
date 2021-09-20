@@ -1,5 +1,6 @@
 import React, { createContext, useEffect } from "react";
 import { useState } from "react";
+import { REACT_APP_API_TOKEN } from "@env";
 
 export const GlobalContext = createContext();
 
@@ -19,8 +20,7 @@ export function GlobalContextProvider({ children }) {
         "https://www.abibliadigital.com.br/api/books",
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRodSBKdWwgMDggMjAyMSAwNzowODozNCBHTVQrMDAwMC5qYXlsbHNvbnNvdXNhM0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3MjgxMTR9.zhoFn6pH-aOENIf4NKUnzZiC6enc8o8a7Zl6I14n8d0",
+            Authorization: `Bearer ${REACT_APP_API_TOKEN}`,
           },
         }
       );

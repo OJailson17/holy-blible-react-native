@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import { REACT_APP_API_TOKEN } from "@env";
 
 export const Select = ({ selectData }) => {
   const { book, setBook, chapter, setChapter, qtdChapters, setQtdChapters } =
@@ -16,8 +17,7 @@ export const Select = ({ selectData }) => {
         `https://www.abibliadigital.com.br/api/books/${book}`,
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRodSBKdWwgMDggMjAyMSAwNzowODozNCBHTVQrMDAwMC5qYXlsbHNvbnNvdXNhM0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3MjgxMTR9.zhoFn6pH-aOENIf4NKUnzZiC6enc8o8a7Zl6I14n8d0",
+            Authorization: `Bearer ${REACT_APP_API_TOKEN}`,
           },
         }
       );

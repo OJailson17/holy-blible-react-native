@@ -18,6 +18,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import { createRef } from "react";
 import { Loader } from "../../components/Loader/Loader";
+import { REACT_APP_API_TOKEN } from "@env";
 
 const scroll = createRef();
 
@@ -43,8 +44,7 @@ export function BibleScreen() {
         `https://www.abibliadigital.com.br/api/verses/acf/${book}/${chapter}`,
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRodSBKdWwgMDggMjAyMSAwNzowODozNCBHTVQrMDAwMC5qYXlsbHNvbnNvdXNhM0BnbWFpbC5jb20iLCJpYXQiOjE2MjU3MjgxMTR9.zhoFn6pH-aOENIf4NKUnzZiC6enc8o8a7Zl6I14n8d0",
+            Authorization: `Bearer ${REACT_APP_API_TOKEN}`,
           },
         }
       );
